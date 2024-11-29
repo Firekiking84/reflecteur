@@ -14,7 +14,7 @@ void		ef::MidiReader::refresh_position(uint32_t	&n_sample,
   uint32_t	sample_ellapsed;
 
   sample_ellapsed = delta_time * ((double)tempo / fileContent.header.timeDivision);
-  sample_ellapsed = sample_ellapsed * 100000 * SAMPLE_PER_SECONDS;
+  sample_ellapsed = sample_ellapsed / 1000000 * SAMPLE_PER_SECONDS;
   n_sample += sample_ellapsed;
   delta_time = 0;  
 }

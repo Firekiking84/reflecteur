@@ -13,15 +13,16 @@ char		*ef::MidiReader::read_event(char	*content,
   event.type = identify_event(content);
   if (event.type == UNKNOWN)
       return (NULL);
-  content += 2;
   if (event.type < END_META)
     {
+      content += 2;
       content += read_vlq(content, &event.size);
       event.data = content;
       content += event.size;
     }
   else
     {
+      content += 1;
       if (event.type >= PROGRAM_CHANGE_CHN_1 && event.type <= PROGRAM_CHANGE_CHN_16)
 	{
 	  event.size = 1;

@@ -9,10 +9,9 @@
 int		ef::MidiReader::read_content(std::ifstream	&file,
 					     t_midi_file	&fileContent)
 {
-  uint32_t	size_read;
+  uint32_t	n_channel;
 
-  size_read = 0;
-  while (size_read < fileContent.header.size)
-    read_track(file, fileContent, size_read);
+  for (n_channel = 0; n_channel < fileContent.header.nbTracks; n_channel += 1)
+    read_track(file, fileContent);
   return (0);
 }

@@ -10,24 +10,16 @@
 int		ef::MidiReader::read_vlq(const char	*data,
 					 uint32_t	*out)
 {
-  int		len;
-  int		cbegin;
   int		i;
-  char		*str_out;
-  char		data_cpy[4];
+  int		len;
 
-  memcpy(data_cpy, data, 4);
-  len = get_vlq_len(data_cpy);
-  cbegin = len - 1;
+  for (i = 0; data[i] < 0; i += 1);
+  len = i + 1;
   *out = 0;
-  str_out = (char *)out;
-  i = 0;
-  while (i < len)
+  for (;i >= 0; i -= 1)
     {
-      data_cpy[cbegin - i] = data_cpy[cbegin - i] << 1;
-      data_cpy[cbegin - i] = data_cpy[cbegin - i] >> 1;
-      str_out[i] = data_cpy[cbegin - i];
-      i += 1;
+      *out <<= 7; // On monte tout d'un octet
+      *out += (data[i] & 0x7f); // On additionne que les 7 bits les moins importants
     }
   return (len);
 }

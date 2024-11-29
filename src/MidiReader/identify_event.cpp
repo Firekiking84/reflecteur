@@ -10,11 +10,13 @@ ef::MidiReader::t_event_type	ef::MidiReader::identify_event(char	*data)
 {
   if (*data != -1)
     {
-      char	type;
-      char	channel;
+      uint8_t	type;
+      uint8_t	channel;
+      uint8_t	byte;
 
-      type = *data >> 4;
-      channel = *data << 4;
+      byte = *((uint8_t *)data);
+      type = byte >> 4;
+      channel = byte << 4;
       channel = channel >> 4;
       if (type == 12)
 	return ((t_event_type)(PROGRAM_CHANGE_CHN_1 + channel));

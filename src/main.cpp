@@ -11,8 +11,9 @@ int			main(void)
 {
   //  ef::WaveReader	reader("./res");
   //  ef::WaveReader	reader("./res/wav/test_lecture24.wav");
-  ef::MidiReader	reader("./res/mid/test.mid");
+  ef::MidiReader	reader("./res/mid/");
 
   //  reader.print_file_sample("./res/wav/test_lecture24.wav");
+  std::cout << "Start Playing !" << std::endl;
   return(reader.play_all());
 }

@@ -25,12 +25,12 @@ double		ef::MidiReader::get_track_duration(std::vector<t_event>	&events,
       delta_time += events[i].delta_time;
       if (events[i].type == SET_TEMPO)
 	{
-	  duration += delta_time * ((double)tempo / fileContent.header.timeDivision) * 100000;
+	  duration += delta_time * ((double)tempo / fileContent.header.timeDivision) / 1000000;
 	  delta_time = 0;
 	  tempo = 0;
 	  memcpy(&tempo, events[i].data, 3);
 	}
     }
-  duration += delta_time * ((double)tempo / fileContent.header.timeDivision) * 100000;
+  duration += delta_time * ((double)tempo / fileContent.header.timeDivision) / 1000000;
   return (duration);
 }

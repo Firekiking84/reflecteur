@@ -173,8 +173,7 @@ namespace			ef
     int				read_content(std::ifstream	&file,
 					     t_midi_file	&fileContent);
     int				read_track(std::ifstream	&file,
-					   t_midi_file		&fileContent,
-					   uint32_t		&total_read);
+					   t_midi_file		&fileContent);
     char			*read_event(char		*content,
 					   t_event		&event);
     t_event_type		identify_event(char		*data);
@@ -196,8 +195,6 @@ namespace			ef
     int				compute_file(t_midi_file	&fileContent);
     void			wait_end_effect(std::vector<t_bunny_effect *>	effects);
     t_midi_file			*get_file(std::string		filename);
-    int				get_vlq_len(const char		*data);
-    int				get_vlq_len(uint32_t		data);
   };
 }
 
