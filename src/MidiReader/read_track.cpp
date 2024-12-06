@@ -43,8 +43,10 @@ int			ef::MidiReader::read_track(std::ifstream	&file,
 	}
       events.push_back(event);
     }
-  fileContent.duration = get_track_duration(events, fileContent);
-  compile_events(fileContent, events);
+  fileContent.time.duration = get_track_duration(events, fileContent);
+  std::cout << fileContent.filename << " duration : " << fileContent.time.duration << " s" << std::endl;
+  if (fileContent.time.duration > 0)
+    compile_events(fileContent, events);
   delete[] track.start_content;
   return (0);
 }

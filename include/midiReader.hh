@@ -23,7 +23,14 @@ namespace			ef
   class				MidiReader
   {
   public:
-        typedef enum
+    
+    typedef union
+    {
+      uint8_t bytes[4];
+      uint32_t value;
+    } t_converter;
+
+    typedef enum
       {
 	UNKNOWN = -1,
 	SEQUENCE = 0,
@@ -153,15 +160,30 @@ namespace			ef
     {
       int			start;
       int			stop;
+      uint8_t			velocity;
       double			frequency;
       t_bunny_effect		*effect;
     }				t_sound;
-    
+
+    typedef struct		s_time_mod
+    {
+      uint32_t			delta_time;
+      int			tickPerDiv;
+    }				t_time_mod;
+
+    typedef struct		s_time
+    {
+      double			duration;
+      uint32_t			mod_delta_time;
+      size_t			n_mod;
+      std::vector<t_time_mod>	time_mods;
+    }				t_time;
+
     typedef struct		s_midi_file
     {
       std::string		filename;
       t_midi_header		header;
-      uint32_t			duration;
+      t_time			time;
       std::vector<t_bunny_effect *>	data;
     }				t_midi_file;
 
@@ -187,7 +209,8 @@ namespace			ef
     void			refresh_position(uint32_t	&n_sample,
 						 uint32_t	&tempo,
 						 uint32_t	&delta_time,
-						 t_midi_file	&fileContent);
+						 t_midi_file	&fileContent,
+						 int		&timeMod);
     double			get_ratio(int				a,
 					  int				b,
 					  int				x);
@@ -195,6 +218,10 @@ namespace			ef
     int				compute_file(t_midi_file	&fileContent);
     void			wait_end_effect(std::vector<t_bunny_effect *>	effects);
     t_midi_file			*get_file(std::string		filename);
+    void			*memrcpy(void			*a,
+					 void			*b,
+					 int			len);
+    t_bunny_effect	*create_new_effect(double		duration);
   };
 }
 
